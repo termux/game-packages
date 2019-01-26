@@ -9,4 +9,4 @@ for package in packages/*; do
 done
 
 cd termux-packages
-./build-package.sh "$@"
+TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91" ./build-package.sh "$@"
