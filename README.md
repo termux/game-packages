@@ -17,7 +17,7 @@ You can then build a package with the following:
 ./build-package.sh name-of-package
 ```
 Note that this currently only works outside of the docker container.
-To build from the docker container, termux-root-packages has to be a subfolder of termux-packages, and a root package can then be built with
+To build from the docker container, termux-root-packages has to be a subfolder of termux-packages, and a game can then be built with
 ```sh
 ./build-package.sh game-packages/packages/package-to-build
 ```
