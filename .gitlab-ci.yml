@@ -21,7 +21,7 @@ before_script:
     libjpeg-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libssl-dev libtool-bin
     lzip m4 openjdk-8-jdk-headless pax-utils pkg-config python-pip python3.7 python3-docutils
     python3-pip python3-setuptools python3-sphinx ruby scons texinfo unzip xfonts-utils xmlto
-    zip zlib1g-dev > /dev/null
+    zip zlib1g-dev python-yaml > /dev/null
   - mkdir -p ${HOME}/lib
   - curl --silent --location --output sdk.zip
     https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REVISION}.zip
