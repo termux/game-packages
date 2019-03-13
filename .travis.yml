@@ -23,6 +23,7 @@ env:
 ## Copy our packages to the build environment.
 before_script:
   - cp -a ./packages/* ./termux-packages/packages/
+  - cp -a ./scripts/setup-build-environment.sh ./termux-packages/scripts/
 
 ## Build modified packages.
 script:
