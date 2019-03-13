@@ -31,7 +31,7 @@ script:
   - MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
   - cd ./termux-packages
   - |
-    ./scripts/run-docker.sh ./scripts/setup-build-environment.sh
+    sudo ./scripts/run-docker.sh ./scripts/setup-build-environment.sh
     for package in $MODIFIED_PACKAGES; do
-        ./scripts/run-docker.sh ./build-package.sh -q -a "$TERMUX_ARCH" "$package" || exit 1
+        sudo ./scripts/run-docker.sh ./build-package.sh -q -a "$TERMUX_ARCH" "$package" || exit 1
     done
