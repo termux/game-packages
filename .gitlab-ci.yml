@@ -39,10 +39,6 @@ before_script:
     when:
       - runner_system_failure
       - unknown_failure
-  artifacts:
-    when: always
-    paths:
-      - termux-packages/debs
 
 ## Building packages for AArch64.
 build-aarch64:
