@@ -14,7 +14,7 @@ before_script:
     for pkg in ./packages/*; do
         if [ -d "./termux-packages/packages/$(basename "$pkg")" ]; then
             echo "[*] Replacing existing $pkg in termux-packages..."
-            rm -rf "./termux-packages/packages/$pkg"
+            rm -rf ./termux-packages/packages/$(basename "$pkg")
         fi
         cp -a "$pkg" ./termux-packages/packages/
     done
