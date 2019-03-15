@@ -71,11 +71,11 @@ build-x86_64:
 
 ## Submit build packages to repository.
 ## This should be executed Only if performing
-## builds on branch "master".
+## builds on branch "android-5".
 upload-packages:
   stage: deploy
   only:
-    - master@Grimler/game-packages
+    - android-5@Grimler/game-packages
   script:
     - MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
     - |
