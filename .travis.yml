@@ -27,6 +27,10 @@ script:
   - unset BINTRAY_GPG_SUBJECT
   - unset BINTRAY_GPG_PASSPHRASE
   - |
+    if [ "$TRAVIS_BRANCH" == "android-5" ]; then
+          echo "[*] Building on android-5 branch"
+          ( cd termux-packages; git checkout android-5 )
+    fi
     for package in $(./scripts/get-modified-packages.sh); do
         ./start-builder.sh ./build-package.sh -q -a "$TERMUX_ARCH" "$package" || exit 1
     done

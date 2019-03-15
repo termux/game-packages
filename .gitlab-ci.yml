@@ -32,6 +32,10 @@ before_script:
     - MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
     - cd ./termux-packages
     - |
+      if [ "$CI_COMMIT_REF_NAME" == "android-5" ]; then
+          echo "[*] Building on android-5 branch"
+          git checkout android-5
+      fi
       for package in $MODIFIED_PACKAGES; do
           ./build-package.sh -q -i -a "$TERMUX_ARCH" "$package"
       done
@@ -40,6 +44,10 @@ before_script:
     when:
       - runner_system_failure
       - unknown_failure
+  artifacts:
+    when: always
+    paths:
+      - termux-packages/debs
 
 ## Building packages for AArch64.
 build-aarch64:
