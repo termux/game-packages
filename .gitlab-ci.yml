@@ -78,7 +78,6 @@ upload-packages:
     - master@Grimler/game-packages
   script:
     - MODIFIED_PACKAGES=$(./scripts/get-modified-packages.sh)
-    - sudo ./scripts/setup-build-environment.sh
     - |
       if [ -n "$MODIFIED_PACKAGES" ]; then
           ./scripts/package_uploader.sh --path ./termux-packages/debs $MODIFIED_PACKAGES
