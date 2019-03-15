@@ -35,7 +35,7 @@ PACKAGE_DELETE_MODE=false
 KEEP_OLD_VERSION=false
 
 # Bintray-specific configuration.
-BINTRAY_REPO_NAME="game-packages"
+BINTRAY_REPO_NAME="game-packages-21"
 BINTRAY_REPO_GITHUB="termux/game-packages"
 BINTRAY_REPO_DISTRIBUTION="games"
 BINTRAY_REPO_COMPONENT="stable"
