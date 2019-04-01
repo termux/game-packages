@@ -60,6 +60,6 @@ fi
 	if [ $# -ge 1 ]; then
 		docker exec --interactive --tty "$CONTAINER_NAME" "$@"
 	else
-	        docker exec --interactive --tty "$CONTAINER_NAME" bash
+		docker exec --interactive --tty "$CONTAINER_NAME" bash
 	fi
 ) 3< "$LOCKFILE"
