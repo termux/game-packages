@@ -1,4 +1,9 @@
 # Termux game packages
+
+[![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
+
+[![pipeline status](https://gitlab.com/grimler/game-packages/badges/master/pipeline.svg)](https://gitlab.com/grimler/game-packages/commits/master)
+
 This repository contains games for termux.
 
 # Building a package
@@ -17,7 +22,7 @@ You can then build a package with the following:
 ./build-package.sh name-of-package
 ```
 Note that this currently only works outside of the docker container.
-To build from the docker container, termux-root-packages has to be a subfolder of termux-packages, and a game can then be built with
+To build from the docker container, game-packages has to be a subfolder of termux-packages, and a game can then be built with
 ```sh
 ./build-package.sh game-packages/packages/package-to-build
 ```
