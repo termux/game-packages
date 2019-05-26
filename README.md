@@ -2,7 +2,7 @@
 
 [![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
 
-[![pipeline status](https://gitlab.com/grimler/game-packages/badges/master/pipeline.svg)](https://gitlab.com/grimler/game-packages/commits/master)
+[![pipeline status](https://api.cirrus-ci.com/github/termux/game-packages.svg)](https://api.cirrus-ci.com/github/termux/game-packages.svg)
 
 This repository contains games for termux.
 
