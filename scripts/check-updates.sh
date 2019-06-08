@@ -44,6 +44,8 @@ translate_package_name() {
 	local translated_name
 
 	case "$1" in
+		cavez-of-phear) translated_name="cavezofphear";;
+		
 		*) translated_name="$1";;
 	esac
 
