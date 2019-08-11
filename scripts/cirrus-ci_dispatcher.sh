@@ -110,8 +110,8 @@ if ! $DO_UPLOAD; then
 	echo "[*] Installing dependencies"
 	# python-yaml needed by open-adventure
 	DEPENDENCIES="python-yaml"
-        sudo apt update
-        sudo apt install -y $DEPENDENCIES
+	sudo apt update
+	sudo apt install -y $DEPENDENCIES
 
 
 	echo "[*] Building packages: $PACKAGE_NAMES"
