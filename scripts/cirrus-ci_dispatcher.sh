@@ -144,7 +144,7 @@ fi
 ##
 ###############################################################################
 
-if [ "$CIRRUS_BRANCH" = "master" ]; then
+if [ "$CIRRUS_BRANCH" = "android-5" ]; then
 	if ! $DO_UPLOAD; then
 		ARCHIVE_NAME="debs-${TERMUX_ARCH}-${CIRRUS_CHANGE_IN_REPO}.tar.gz"
 
