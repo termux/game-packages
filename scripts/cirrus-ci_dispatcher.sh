@@ -148,7 +148,6 @@ case "$1" in
 		;;
 	*)
 		if [ -n "$PACKAGE_NAMES" ]; then
-			if ! $DO_UPLOAD; then
 			echo "[*] Installing dependencies"
 			# python-yaml needed by open-adventure
 			DEPENDENCIES="python-yaml"
