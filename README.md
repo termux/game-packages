@@ -6,6 +6,10 @@
 
 This repository contains games for termux.
 
+# Contributing
+
+Information on how to open pull requests to help keep the packages here up to date can be read in [CONTRIBUTING.md](CONTRIBUTING.md)
+
 # Building a package
 To build a package, first clone game-packages,
 ```sh
