@@ -47,8 +47,8 @@ fi
 	docker stop "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 	echo "[*] Setting up repository submodules..."
-        USER=$(stat -c "%U" "$REPOROOT")
-        GROUP=$(stat -c "%U" "$REPOROOT")
+	USER=$(stat -c "%U" "$REPOROOT")
+	GROUP=$(stat -c "%U" "$REPOROOT")
 	sudo -u $USER -g $GROUP git submodule deinit --all --force
 	sudo -u $USER -g $GROUP git submodule update --init
 ) 3< "$LOCK_FILE"
