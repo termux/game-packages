@@ -28,6 +28,8 @@ LOCK_FILE="/tmp/.termux-game-builder.lck"
 CONTAINER_NAME="termux-package-builder"
 BUILD_ENVIRONMENT="termux-packages"
 
+BUILDER_HOME="/home/builder"
+
 cd "$REPOROOT"
 
 if [ ! -e "$LOCK_FILE" ]; then
@@ -45,17 +47,9 @@ fi
 	docker stop "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 	echo "[*] Setting up repository submodules..."
-	git submodule deinit --all --force
-	git submodule update --init
-
-	echo "[*] Copying packages from './packages' to build environment..."
-	for pkg in $(find "$REPOROOT"/packages -mindepth 1 -maxdepth 1 -type d); do
-		if [ ! -d "${REPOROOT}/${BUILD_ENVIRONMENT}/packages/$(basename "$pkg")" ]; then
-			cp -a "$pkg" "${REPOROOT}/${BUILD_ENVIRONMENT}"/packages/
-		else
-			echo "[!] Package '$(basename "$pkg")' already exists in build environment. Skipping."
-		fi
-	done
+        read USER GROUP <<< $(stat -c "%U %G" "$REPOROOT")
+	sudo -u $USER -g $GROUP git submodule deinit --all --force
+	sudo -u $USER -g $GROUP git submodule update --init
 ) 3< "$LOCK_FILE"
 
 (flock -n 3 || true
@@ -66,18 +60,29 @@ fi
 			--tty \
 			--detach \
 			--name "$CONTAINER_NAME" \
-			--volume "${REPOROOT}/${BUILD_ENVIRONMENT}:/home/builder/termux-packages" \
-			--workdir "/home/builder/termux-packages" \
+			--volume "${REPOROOT}/${BUILD_ENVIRONMENT}:${BUILDER_HOME}/termux-packages" \
+			--workdir "${BUILDER_HOME}/termux-packages" \
 			"$IMAGE_NAME"
 
 		if [ "$(id -u)" -ne 0 ] && [ "$(id -u)" -ne 1000 ]; then
 			echo "Changed builder uid/gid... (this may take a while)"
-			docker exec $DOCKER_TTY "$CONTAINER_NAME" sudo chown -R $(id -u) "/home/builder"
+			docker exec $DOCKER_TTY "$CONTAINER_NAME" sudo chown -R $(id -u) "${BUILDER_HOME}"
 			docker exec $DOCKER_TTY "$CONTAINER_NAME" sudo chown -R $(id -u) /data
 			docker exec $DOCKER_TTY "$CONTAINER_NAME" sudo usermod -u $(id -u) builder
 			docker exec $DOCKER_TTY "$CONTAINER_NAME" sudo groupmod -g $(id -g) builder
 		fi
 	fi
+
+	echo "[*] Copying packages from './packages' to build environment..."
+	for pkg in $(find "$REPOROOT"/packages -mindepth 1 -maxdepth 1 -type d); do
+		PKG_DIR="${BUILDER_HOME}/${BUILD_ENVIRONMENT}/packages/$(basename "$pkg")"
+		if docker exec "$CONTAINER_NAME" [ ! -d "${PKG_DIR}" ]; then
+			# docker cp -a does not work, discussed here: https://github.com/moby/moby/issues/34142
+			docker cp "$pkg" "$CONTAINER_NAME:${BUILDER_HOME}/${BUILD_ENVIRONMENT}"/packages/
+		else
+			echo "[!] Package '$(basename "$pkg")' already exists in build environment. Skipping."
+		fi
+	done
 
 	if [ $# -ge 1 ]; then
 		docker exec --interactive $DOCKER_TTY "$CONTAINER_NAME" "$@"
