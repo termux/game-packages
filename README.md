@@ -15,25 +15,22 @@ To build a package, first clone game-packages,
 ```sh
 git clone https://github.com/termux/game-packages
 ```
-and then update the termux-packages submodule.
+
+If you want to build a package with the docker container run
 ```sh
-cd game-packages
-git submodule init
-git submodule update
+./start-builder.sh ./build-package.sh name-of-package
 ```
-You can then build a package with the following:
+You might have to run the command as root, if you have not configured docker to be run as your user.
+
+To build outside the docker container you can run
 ```sh
-./build-package.sh name-of-package
+./termux-packages/build-package.sh ../packages/package-to-build)
 ```
-Note that this currently only works outside of the docker container.
-To build from the docker container, game-packages has to be a subfolder of termux-packages, and a game can then be built with
-```sh
-./build-package.sh game-packages/packages/package-to-build
-```
-The termux-package submodule is not needed for this.
+`../` is needed since termux-packages/build-package.sh expects the path given (packages/package-to-build) to be relative to the position to the builde-package.sh script.
 
 # Subscribing to the repository
 To install packages from this repository, you need to subscribe to it with:
 ```sh
 pkg install game-repo
 ```
+In the default termux installation this has already been done.
