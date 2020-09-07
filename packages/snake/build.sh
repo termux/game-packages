@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/TipzTeam/snake-cpp-termux
-TERMUX_PKG_DESCRIPTION="Play the 90s game again."
+TERMUX_PKG_DESCRIPTION="Eat as much as you want while avoiding walls."
 TERMUX_PKG_LICENSE=MIT
 TERMUX_PKG_VERSION=1.0
 TERMUX_PKG_SRCURL=https://github.com/TipzTeam/snake-cpp-termux/archive/${TERMUX_PKG_VERSION}.tar.gz
