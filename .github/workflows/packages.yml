@@ -136,7 +136,7 @@ jobs:
         # Zip the deb archives to only do one transfer to the repo.
         # This makes it easier to parse it, we can run one update job
         # instead of one for each arch on the server.
-        archive="termux-packages-${{ github.sha }}.zip"
+        archive="game-packages-${{ github.sha }}.zip"
         zip $archive debs-*-${{ github.sha }}.tar
         sftp -P ${{ secrets.PORT }} ${{ secrets.USER }}@grimler.se <<EOF
           put $archive /debs/
