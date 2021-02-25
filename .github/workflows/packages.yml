@@ -83,11 +83,14 @@ jobs:
         test -f ./deleted_packages.txt && mv ./deleted_packages.txt ./debs/
         # Files containing certain symbols (e.g. ":") will cause failure in actions/upload-artifact.
         # Archiving *.deb files in a tarball to avoid issues with uploading.
-        tar cf artifacts/debs-${{ matrix.target_arch }}.tar debs
+        tar cf artifacts/debs-${{ matrix.target_arch }}-${{ github.sha }}.tar debs
+    - name: Checksums for built *.deb files
+      run: |
+        find debs -type f -name "*.deb" -exec sha256sum "{}" \; | sort -k2
     - name: Store *.deb files
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
-        name: game-packages
+        name: game-packages-${{ github.sha }}
         path: ./artifacts
   upload:
     if: github.event_name != 'pull_request'
@@ -97,9 +100,9 @@ jobs:
     - name: Clone repository
       uses: actions/checkout@v2
     - name: Get *.deb files
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v2
       with:
-        name: game-packages
+        name: game-packages-${{ github.sha }}
         path: ./
     - name: Upload to bintray.com
       env:
@@ -126,10 +129,6 @@ jobs:
         echo "${{ secrets.KNOWN_HOST_ENTRY }}" >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK
         ssh-add - <<< "${{ secrets.SSHKEY }}"
-    - name: Get *.deb files
-      uses: actions/download-artifact@v2
-      with:
-        name: game-packages
     - name: Upload to grimler.se
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -137,8 +136,8 @@ jobs:
         # Zip the deb archives to only do one transfer to the repo.
         # This makes it easier to parse it, we can run one update job
         # instead of one for each arch on the server.
-        archive="game-packages-$(tr -dc A-Za-z0-9 </dev/urandom | head -c 6).zip"
-        zip $archive debs-aarch64.tar debs-arm.tar debs-i686.tar debs-x86_64.tar
+        archive="termux-packages-${{ github.sha }}.zip"
+        zip $archive debs-*-${{ github.sha }}.tar
         sftp -P ${{ secrets.PORT }} ${{ secrets.USER }}@grimler.se <<EOF
           put $archive /debs/
         EOF
