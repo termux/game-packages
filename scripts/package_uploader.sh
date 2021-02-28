@@ -538,8 +538,7 @@ process_packages() {
 			delete_package "$package_name" || continue
 		else
 			if [ ! -f "$TERMUX_PACKAGES_BASEDIR/packages/$package_name/build.sh" ]; then
-				msg "    * ${package_name}: skipping because such package does not exist."
-				SCRIPT_ERROR_EXIT=true
+				msg "    * ${package_name}: not found, might be a subpackage."
 				continue
 			fi
 
