@@ -1,7 +1,5 @@
 # Termux game packages
 
-[![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
-
 [![Last build status](https://github.com/termux/game-packages/workflows/Packages/badge.svg)](https://github.com/termux/game-packages/actions)
 
 This repository contains games for termux.
