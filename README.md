@@ -2,6 +2,8 @@
 
 [![Last build status](https://github.com/termux/game-packages/workflows/Packages/badge.svg)](https://github.com/termux/game-packages/actions)
 
+[![Powered by FossHost](.github/static/powered-by-fosshost.png)](https://fosshost.org)
+
 This repository contains games for termux.
 
 # Contributing
