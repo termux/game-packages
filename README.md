@@ -1,5 +1,7 @@
 # Termux game packages
 
+THIS REPO HAS BEEN MERGED WITH [TERMUX-PACKAGES](https://github.com/termux/termux-packages) - open issues and PRs against that repo instead
+
 [![Last build status](https://github.com/termux/game-packages/workflows/Packages/badge.svg)](https://github.com/termux/game-packages/actions)
 
 [![Powered by FossHost](.github/static/powered-by-fosshost.png)](https://fosshost.org)
